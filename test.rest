@@ -27,7 +27,7 @@ GET http://localhost:3030/hello-world/3
 # send with a token (text after 'Authorization:') received from running a post to /login
 GET http://localhost:3030/users
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjMzODE2MTI1LCJleHAiOjE2MzM4MTY3MjV9.jDsBPzERZcj66lK-7te73-GZowbHDNFlUpv_qx0BEUI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjMzODE4NzEyLCJleHAiOjE2MzM4MTkzMTJ9.fXvt-nqbLPEMOc60SMxa3hpSE18nhTIrRjaiMuI5RqM
 
 
 ### POST /login

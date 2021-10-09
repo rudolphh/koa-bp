@@ -11,7 +11,12 @@ const { seedDatabase } = require('./seeder');
 seedDatabase();
 
 const app = new Koa();
-const port = process.env.PORT || 3000;
+// this function will add to the db to the context object (i.e. ctx.db)
+// instead of add the db connection object in middleware (i.e. ctx.state.db)
+// may be more performant (no middleware) and/or easier (fewer require()s) at the expense 
+// of relying more on ctx, which could be considered an anti-pattern.
+const { connectDBtoApp } = require('./middlewares/dbConnection');
+connectDBtoApp(app.context);
 
 const Router = require("koa-router"); // koa is modularized so separate modules for routing, etc.
 const appRouter = new Router();
@@ -98,22 +103,26 @@ appRouter.get("/hello/world", async (ctx) => {
 appRouter.get("/hello-world/:id", (ctx) => {
   // find record in db by id
   // return the json object
+  ctx.type = 'application/json';
   ctx.body = JSON.stringify({ id: ctx.params.id });
 });
 
 
-app.use(require('./middlewares/dbConnection'));
+//app.use(require('./middlewares/dbConnection'));
 const jwt = require('koa-jwt');// a koa middleware for handling the jwt verify
-app.use(jwt({ secret: process.env.SECRET_KEY }));
-// use 'key' option if you prefer to use another ctx key for the decoded data
+// to verify the jwt on all routes, use middleware like this:
+// app.use(jwt({ secret: process.env.SECRET_KEY }));
+
+// to use 'key' option if you prefer to use another ctx key for the decoded data
 // app.use(jwt({ secret: process.env.SECRET_KEY, key: 'jwtData' }));
 
-appRouter.get('/users', async (ctx) => {
+// to use the jwt (verify) middleware on this route only, provide as an argument
+appRouter.get('/users', jwt({ secret: process.env.SECRET_KEY }), async (ctx) => {
     // if the token is valid the middleware allowed us to reach the route
     // and we have access to the user object (with id property) for queries
-    console.log('the user id is : ', ctx.state.user.id);
+    console.log('the user id is : ', ctx.state.user);
     try {
-        const [results] = await ctx.state.db.query("SELECT * FROM user");
+        const [results] = await ctx.db.query("SELECT * FROM user");
         ctx.body = results;
     } catch (err) {
         console.error(err);
@@ -122,7 +131,9 @@ appRouter.get('/users', async (ctx) => {
 });
 
 
-app.use(appRouter.routes()); //Use the routes defined using the router
+app.use(appRouter.routes()); //apply the routes to the application
+
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });

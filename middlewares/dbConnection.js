@@ -1,5 +1,11 @@
 const mysqlPool = require('../database/dbPool');
 
+const connectDBtoApp = async (context) => {
+    const connection = await mysqlPool.getConnection();
+    connection.config.namedPlaceholders = true;
+    context.db = connection;
+};
+
 const dbConnection = async (ctx, next) => {
     // get a connection from the pool
     const connection = await mysqlPool.getConnection();
@@ -11,4 +17,4 @@ const dbConnection = async (ctx, next) => {
     await next();
 };
 
-module.exports = dbConnection;
+module.exports = { connectDBtoApp, dbConnection };
