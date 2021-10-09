@@ -24,12 +24,16 @@
   },
   "homepage": "https://github.com/rudolphh/koa-bp#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.3",
     "koa-body": "^4.2.0",
+    "koa-jwt": "^4.0.3",
     "koa-mount": "^4.0.0",
     "koa-router": "^10.1.1",
     "koa-send": "^5.0.1",
-    "koa-static": "^5.0.0"
+    "koa-static": "^5.0.0",
+    "mysql2": "^2.3.0"
   }
 }
