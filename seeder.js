@@ -29,7 +29,7 @@ const seedDatabase = async () => {
     const connection = await mysqlPool.getConnection();
 
     // create database schema
-    await connection.query("CREATE DATABASE IF NOT EXISTS express_bp_db");
+    await connection.query("CREATE DATABASE IF NOT EXISTS koa_bp_db");
 
     // drop user table if exists
     await connection.query(`

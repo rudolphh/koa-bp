@@ -1,11 +1,11 @@
-# Express Basics, and using JWT, Bcrypt, MySQL
+# Koa Basics, and using JWT, Bcrypt, MySQL
 > API Fundamentals, authentication, encryption, and persistence
 
 ### Installation
-[Download here](https://github.com/rudolphh/express-bp/archive/refs/heads/master.zip)
+[Download here](https://github.com/rudolphh/koa-bp/archive/refs/heads/master.zip)
 OR
 ```
-git clone https://github.com/rudolphh/express-bp.git
+git clone https://github.com/rudolphh/koa-bp.git
 cd koa-bp
 npm install
 ```
@@ -17,7 +17,7 @@ DB_PORT=3306
 DB_HOST=localhost
 DB_USER=root
 DB_PASS=root
-DB_NAME=express_bp_db
+DB_NAME=koa_bp_db
 SECRET_KEY=somekindofsecrettext
 ```
 These can be adjusted to your preference, but ***DB_NAME*** is the name of the database schema the seeder will use to automatically create some initial data for you in the database.
