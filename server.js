@@ -120,7 +120,7 @@ const jwt = require('koa-jwt');// a koa middleware for handling the jwt verify
 appRouter.get('/users', jwt({ secret: process.env.SECRET_KEY }), async (ctx) => {
     // if the token is valid the middleware allowed us to reach the route
     // and we have access to the user object (with id property) for queries
-    console.log('the user id is : ', ctx.state.user);
+    console.log('the user id is : ', ctx.state.user.id);
     try {
         const [results] = await ctx.db.query("SELECT * FROM user");
         ctx.body = results;
