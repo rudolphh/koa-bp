@@ -1,0 +1,35 @@
+{
+  "name": "koa-bp",
+  "version": "1.0.0",
+  "description": "koa api basics, authentication with jwt, encrypting passwords with bcrypt, and persisting data with mysql",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rudolphh/koa-bp.git"
+  },
+  "keywords": [
+    "koa",
+    "api",
+    "jwt",
+    "bcrypt",
+    "mysql"
+  ],
+  "author": "Rudy A. Hernandez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rudolphh/koa-bp/issues"
+  },
+  "homepage": "https://github.com/rudolphh/koa-bp#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "koa": "^2.13.3",
+    "koa-body": "^4.2.0",
+    "koa-mount": "^4.0.0",
+    "koa-router": "^10.1.1",
+    "koa-send": "^5.0.1",
+    "koa-static": "^5.0.0"
+  }
+}
