@@ -60,10 +60,15 @@ appRouter // are there chainable route handlers (same path) like in express???
     .delete('/hello', async (ctx) => {});
 
 
+// app.use(async (ctx) => {
+//     if ('/' == ctx.path) return ctx.body = 'Try GET /package.json';
+//     await send(ctx, ctx.path);
+//     })
+
 const send = require('koa-send');
 appRouter.get('/hello/world', async (ctx) => {
     // if we want to serve a static file within an endpoint,
-    await send(ctx, 'public/index.html');
+    await send(ctx, '/public/index.html');
 });
 
 appRouter.get('/hello-world/:id', (ctx) => {
@@ -75,4 +80,6 @@ appRouter.get('/hello-world/:id', (ctx) => {
 
 
 app.use(appRouter.routes()); //Use the routes defined using the router
-app.listen(port);
+app.listen(port, () => {
+    console.log(`listening on port ${port}`)
+});
