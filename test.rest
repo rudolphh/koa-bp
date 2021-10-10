@@ -11,14 +11,6 @@ content-type: application/json
     "hello" : "world"
 }
 
-# GET /hello/world will return a web page but
-### POST /hello/world will return a body property with the object we send
-POST http://localhost:3030/hello/world
-content-type: application/json
-
-{
-    "hello" : "world"
-}
 
 ### GET /hello-world/:id will return whatever value we put for id
 GET http://localhost:3030/hello-world/3
