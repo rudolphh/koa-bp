@@ -1,11 +1,14 @@
 const mysqlPool = require('../database/dbPool');
 
-const connectDBtoApp = async (context) => {
+const addDBtoApp = async (context) => {
     const connection = await mysqlPool.getConnection();
     connection.config.namedPlaceholders = true;
     context.db = connection;
 };
 
+// we don't need this middleware bc we've now applied the db to 
+// the application context at the very start, but for instructional purposes
+// we will use this in authController (i.e. access to db in ctx.state.db)
 const dbConnection = async (ctx, next) => {
     // get a connection from the pool
     const connection = await mysqlPool.getConnection();
@@ -17,4 +20,4 @@ const dbConnection = async (ctx, next) => {
     await next();
 };
 
-module.exports = { connectDBtoApp, dbConnection };
+module.exports = { addDBtoApp, dbConnection };

@@ -62,6 +62,7 @@ This uses the [Rest Client](https://marketplace.visualstudio.com/items?itemName=
 | [node.js] | Evented I/O for the backend |
 | [koa] | Next generation web framework for Node.js |
 | [koa-body] | A full-featured koa body parser middleware |
+| [koa-compose] | Compose middleware specifically for Koa |
 | [koa-jwt] | Koa middleware for validating JSON Web Tokens |
 | [koa-mount] | Mount other Koa applications as middleware |
 | [koa-router] | Router middleware for koa |
@@ -87,6 +88,7 @@ MIT
    [node.js]: <http://nodejs.org>
    [koa]: <https://koajs.com>
    [koa-body]: <https://github.com/koajs/koa-body>
+   [koa-compose]: <https://github.com/koajs/compose>
    [koa-jwt]: <https://github.com/koajs/jwt>
    [koa-mount]: <https://github.com/koajs/mount>
    [koa-router]: <https://github.com/ZijianHe/koa-router>

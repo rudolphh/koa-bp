@@ -11,12 +11,13 @@ const { seedDatabase } = require('./seeder');
 seedDatabase();
 
 const app = new Koa();
-// this function will add to the db to the context object (i.e. ctx.db)
-// instead of add the db connection object in middleware (i.e. ctx.state.db)
-// may be more performant (no middleware) and/or easier (fewer require()s) at the expense 
+
+// this function will add the db to the context object (i.e. ctx.db)
+// instead of adding the db connection object in middleware (i.e. ctx.state.db)
+// may be more performant (no middleware) and/or easier (fewer require(s)) at the expense 
 // of relying more on ctx, which could be considered an anti-pattern.
-const { connectDBtoApp } = require('./middlewares/dbConnection');
-connectDBtoApp(app.context);
+const { addDBtoApp } = require('./middlewares/dbConnection');
+addDBtoApp(app.context);
 
 const Router = require("koa-router"); // koa is modularized so separate modules for routing, etc.
 const appRouter = new Router();
