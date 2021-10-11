@@ -50,11 +50,13 @@ function logger(format) {
 }
 
 app.use(logger());
-app.use(logger(":method :url"));
+app.use(logger(":method :url"));// set the format of logger responses
 
 // bring in auth (login, register) routes
 const authRouter = require('./routes/auth');
+// even routes are middleware, register them
 app.use(authRouter.routes());
+// request verbs not defined for a given to path will respond 'method not allowed'
 app.use(authRouter.allowedMethods());
 
 // A Koa Context encapsulates node's request and response objects into a single object
