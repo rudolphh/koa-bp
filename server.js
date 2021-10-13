@@ -106,7 +106,7 @@ appRouter.get("/hello/world", async (ctx) => {
 appRouter.get("/hello-world/:id", (ctx) => {
   // find record in db by id
   // return the json object
-  ctx.type = 'application/json';
+  ctx.type = 'application/json';// unless set, a string response will be plain text
   ctx.body = JSON.stringify({ id: ctx.params.id });
 });
 
