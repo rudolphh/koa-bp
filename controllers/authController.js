@@ -13,6 +13,7 @@ const createTokens = (payload) => {
   const refresh_token = jwt.sign(payload, process.env.SECRET_KEY, {
     expiresIn: "30m",
   });
+  // return the tokens
   return [token, refresh_token];
 };
 
