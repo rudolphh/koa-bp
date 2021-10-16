@@ -7,6 +7,7 @@ OR
 ```
 git clone https://github.com/rudolphh/koa-bp.git
 cd koa-bp
+git checkout typescript
 npm install
 ```
 ### Environment
