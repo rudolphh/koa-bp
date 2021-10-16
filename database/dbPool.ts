@@ -1,5 +1,6 @@
-require('dotenv').config({ path: '../.env'});
-const mysql = require('mysql2/promise');
+import { config } from 'dotenv';
+config();
+import * as mysql from 'mysql2/promise';
 
 // using environment variables injected from .env file
 // create a connection pool to the mysql server
@@ -14,4 +15,4 @@ const pool = mysql.createPool({
 });
 
 
-module.exports = pool;
+export default pool;

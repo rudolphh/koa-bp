@@ -1,13 +1,24 @@
 // loads all environment variables in .env file and adds to process.env (system global EVs)
 // looks in same directory by default for the .env file
 // unless specified in config options object passed into .config()
-// example: require('dotenv').config({ path: '/custom/path/to/.env' })
-require("dotenv").config();
+// example: dotenv.config({ path: '/custom/path/to/.env' })
+import * as dotenv from "dotenv";
+import * as Koa from "koa"; // include koa module (require - CommonJS module system)
+import * as koaBody from "koa-body";
+import * as jwt from 'koa-jwt';// a koa middleware for handling the jwt verify
+import * as mount from "koa-mount";
+import * as Router from "koa-router"; // koa is modularized so separate modules for routing, etc.
+import * as send from "koa-send";
+import * as serve from "koa-static";
+import * as path from "path";
 
-const Koa = require("koa"); // include koa module (require - CommonJS module system)
+import authRouter from './routes/auth';
+import { seedDatabase } from "./seeder";
+import { addDBtoApp } from './middlewares/dbConnection';
+dotenv.config();
+
 
 // created this function to seed our mysql database with some user data
-const { seedDatabase } = require('./seeder');
 seedDatabase();
 
 const app = new Koa();
@@ -16,13 +27,10 @@ const app = new Koa();
 // instead of adding the db connection object in middleware (i.e. ctx.state.db)
 // may be more performant (no middleware) and/or easier (fewer require(s)) at the expense 
 // of relying more on ctx, which could be considered an anti-pattern.
-const { addDBtoApp } = require('./middlewares/dbConnection');
 addDBtoApp(app.context);
 
-const Router = require("koa-router"); // koa is modularized so separate modules for routing, etc.
-const appRouter = new Router();
+const appRouter = new Router<Koa.DefaultState, Koa.Context>();
 
-const koaBody = require("koa-body");
 // like app.use(express.json()) and app.use(express.urlencoded({ extended: true }))
 // for parsing json and urlencoded request bodies
 app.use(koaBody());
@@ -31,13 +39,11 @@ app.use(koaBody());
 // to make publicly available to the client (browser)
 // so something like an image in the public folder '/public/images/kitty.jpg' can be
 // viewed in the browser at http://site.com/assets/images/kitty.jpg
-const serve = require("koa-static");
-const mount = require("koa-mount");
-const path = require("path");
+
 app.use(mount("/assets", serve(path.join(__dirname, "/public/assets"))));
 
 // logger middleware with format options (good practice)
-function logger(format) {
+function logger(format='') {
   format = format || ':method ":url"';
 
   return async function (ctx, next) {
@@ -52,10 +58,6 @@ function logger(format) {
 app.use(logger());
 app.use(logger(":method :url"));
 
-// bring in auth (login, register) routes
-const authRouter = require('./routes/auth');
-app.use(authRouter.routes());
-app.use(authRouter.allowedMethods());
 
 // A Koa Context encapsulates node's request and response objects into a single object
 // for example, ctx.request, ctx.response, ctx.body
@@ -95,7 +97,6 @@ appRouter // are there chainable route handlers (same path) like in express???
 //     await send(ctx, ctx.path);
 //     })
 
-const send = require("koa-send");
 appRouter.get("/hello/world", async (ctx) => {
   // if we want to serve a static file within an endpoint,
   await send(ctx, "/public/index.html");
@@ -110,7 +111,6 @@ appRouter.get("/hello-world/:id", (ctx) => {
 
 
 //app.use(require('./middlewares/dbConnection'));
-const jwt = require('koa-jwt');// a koa middleware for handling the jwt verify
 // to verify the jwt on all routes, use middleware like this:
 // app.use(jwt({ secret: process.env.SECRET_KEY }));
 
@@ -132,6 +132,9 @@ appRouter.get('/users', jwt({ secret: process.env.SECRET_KEY }), async (ctx) => 
 });
 
 
+// bring in auth (login, register) routes
+app.use(authRouter.routes());
+app.use(authRouter.allowedMethods());
 app.use(appRouter.routes()); //apply the routes to the application
 
 const port = process.env.PORT || 3000;

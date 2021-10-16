@@ -11,15 +11,6 @@ content-type: application/json
     "hello" : "world"
 }
 
-# GET /hello/world will return a web page but
-### POST /hello/world will return a body property with the object we send
-POST http://localhost:3030/hello/world
-content-type: application/json
-
-{
-    "hello" : "world"
-}
-
 ### GET /hello-world/:id will return whatever value we put for id
 GET http://localhost:3030/hello-world/3
 
@@ -27,7 +18,7 @@ GET http://localhost:3030/hello-world/3
 # send with a token (text after 'Authorization:') received from running a post to /login
 GET http://localhost:3030/users
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjMzODIyODc1LCJleHAiOjE2MzM4MjM0NzV9.BgVi-AkQrLFcGHNg6RhuZEi278YQWgLLOFOoVE3zpF8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjMzODUzNTU4LCJleHAiOjE2MzM4NTQxNTh9.WJ6Vekg4xN0jz1pLNkKYWtGTmwaCKRFQaRnBGKqjRbI
 
 
 ### POST /login

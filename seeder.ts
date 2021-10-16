@@ -1,5 +1,5 @@
-const mysqlPool = require("./database/dbPool");
-const bcrypt = require("bcrypt");
+import mysqlPool from "./database/dbPool";
+import * as bcrypt from "bcrypt";
 
 const createUser = async (connection, username, password) => {
   // enable mysql2 named placeholders syntax
@@ -10,12 +10,12 @@ const createUser = async (connection, username, password) => {
     //adjust for timezone
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
     //convert to timestamp format
-    now = now.toISOString().slice(0, 19).replace("T", " ");
+    let nowString = now.toISOString().slice(0, 19).replace("T", " ");
 
     const [results] = await connection.query(
       `INSERT INTO user (username, password, created_date, updated_date) 
         VALUES (:username, :hashedPassword, :now, :now)`,
-      { username, hashedPassword, now }
+      { username, hashedPassword, nowString }
     );
 
     return results.insertId;
@@ -55,4 +55,4 @@ const seedDatabase = async () => {
   }
 };
 
-module.exports = { seedDatabase, createUser };
+export { seedDatabase, createUser };

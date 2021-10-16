@@ -1,16 +1,17 @@
-require("dotenv").config("../.env");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const { createUser } = require("../seeder");
+import { config } from 'dotenv';
+config();
+import { sign } from 'jsonwebtoken';
+import { compare } from 'bcrypt';
+import { createUser } from '../seeder';
 
 const createTokens = (payload) => {
   //jwt.sign takes a payload, most often string or object,
   // a secret key we grab from our user defined (.env) environment variables
   // and some options like 'expiresIn' for when the token will be invalid
-  const token = jwt.sign(payload, process.env.SECRET_KEY, {
+  const token = sign(payload, process.env.SECRET_KEY, {
     expiresIn: "10m",
   });
-  const refresh_token = jwt.sign(payload, process.env.SECRET_KEY, {
+  const refresh_token = sign(payload, process.env.SECRET_KEY, {
     expiresIn: "30m",
   });
   return [token, refresh_token];
@@ -41,7 +42,7 @@ const login = async (ctx, next) => {
     // since results returns an array, the first value is the user
     const user = results[0];
 
-    const passwordMatching = await bcrypt.compare(password, user.password);
+    const passwordMatching = await compare(password, user.password);
     if (!passwordMatching) throw new Error("username or password are invalid");
 
     const [token, refresh_token] = createTokens({ id: user.id });
@@ -80,4 +81,4 @@ const register = async (ctx, next) => {
 };
 
 // export these functions as an object to be brought into a router
-module.exports = { login, register };
+export { login, register };

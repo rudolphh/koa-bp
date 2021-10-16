@@ -1,4 +1,4 @@
-const mysqlPool = require('../database/dbPool');
+import mysqlPool from '../database/dbPool';
 
 const addDBtoApp = async (context) => {
     const connection = await mysqlPool.getConnection();
@@ -20,4 +20,4 @@ const dbConnection = async (ctx, next) => {
     await next();
 };
 
-module.exports = { addDBtoApp, dbConnection };
+export { addDBtoApp, dbConnection };
