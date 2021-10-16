@@ -1,4 +1,4 @@
-# Koa Basics, and using JWT, Bcrypt, MySQL
+# Koa Basics (using TypeScript), and using JWT, Bcrypt, MySQL
 > API Fundamentals, authentication, encryption, and persistence
 
 ### Installation
@@ -31,6 +31,11 @@ In the project root, just run the command:
 docker-compose up -d
 ```
 ### Run
+In order to copy .env change and compile ts into /dist directory
+```
+npm run build-dev
+```
+Then
 ```
 npm run start
 ```
