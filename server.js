@@ -41,11 +41,12 @@ function logger(format) {
   format = format || ':method ":url"';
 
   return async function (ctx, next) {
+    // we can change this to log whatever information about the ctx (there is a lot)
     const str = format.replace(":method", ctx.method).replace(":url", ctx.url);
 
     console.log(str);
 
-    await next();
+    await next();// onto the next middleware
   };
 }
 
