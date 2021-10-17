@@ -8,7 +8,7 @@ POST http://localhost:3030/hello
 content-type: application/json
 
 {
-    "hello" : "world"
+    "hello" : "BVTCA"
 }
 
 ### GET /hello-world/:id will return whatever value we put for id
