@@ -1,4 +1,4 @@
-# Koa Basics (using TypeScript), and using JWT, Bcrypt, MySQL
+# Koa Basics (using TypeScript), JWT, Bcrypt, MySQL
 > API Fundamentals, authentication, encryption, and persistence
 
 ### Installation
@@ -7,6 +7,7 @@ OR
 ```
 git clone https://github.com/rudolphh/koa-bp.git
 cd koa-bp
+git checkout typescript
 npm install
 ```
 ### Environment
