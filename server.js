@@ -10,7 +10,7 @@ const Koa = require("koa"); // include koa module (require - CommonJS module sys
 const { seedDatabase } = require('./seeder');
 seedDatabase();
 
-const app = new Koa();
+const app = new Koa();// new app instance (singleton)
 
 // this function will add the db to the context object (i.e. ctx.db)
 // instead of adding the db connection object in middleware (i.e. ctx.state.db)
